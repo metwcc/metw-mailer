@@ -1,0 +1,34 @@
+@en_US:
+    Verify Email Address for Metw
+    title=Hey {{name}}
+    thanks=Thanks for registering an account on metw! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
+    button.verify=Verify email
+    button.remove_email=This account is not mine!
+
+@tr:
+    Metw E-posta Doğrulaması
+    title=Hey {{name}}
+    thanks=Metw'da hesap açtığın için teşekkür ederiz! Başlamadan önce hesabın size ait olduğunu onaylamamız lazım. E-postanızı onaylamak için aşağıya tıklayın:
+    button.verify=E-postayı onayla
+    button.remove_email=Bu hesap benim değil!
+
+
+
+#PLAINTEXT
+{title}
+
+{thanks}
+
+{button.verify}: {{verify}}
+{button.remove_email}: {{remove_email}}
+#END
+
+
+#HTML
+{title}<br>
+<br>
+{thanks}<br>
+<br>
+<a href="{{verify}}">{button.verify}</a><br>
+<a href="{{remove_email}}">{button.remove_email}</a>
+#END

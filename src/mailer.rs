@@ -12,43 +12,47 @@ use lettre::{
 
 use rand::{thread_rng, Rng};
 
-use strfmt::strfmt;
-
 type SmtpTransport = AsyncSmtpTransport<Tokio1Executor>;
+
+pub use crate::mailfmt::Locales;
+use crate::mailfmt::MailFmt;
 
 
 pub struct Mailer {
     mailer: SmtpTransport,
+    mailfmt: MailFmt,
 }
 
 impl Mailer {
     pub fn new() -> Self {
         let mailer = SmtpTransport::builder_dangerous("metw.dev").build();
+        let mailfmt = MailFmt::new();
         Self {
             mailer,
+            mailfmt
         }
     }
 
-    pub async fn send_mail(self, text: &str, html: &str, vars: HashMap<String, String>) {
+    pub async fn send_mail(&self, mail_type: &String, locale: Locales, vars: HashMap<String, String>) {
         let boundary = Self::generate_boundary();
-
-        let text = strfmt(text, &vars).unwrap();
-        let html = strfmt(html, &vars).unwrap();
+        
+        let (subject, plain_text, html) = self.mailfmt.mail(mail_type, locale, vars);
 
         let multipart_headers = "\
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=utf-8
 Mime-Version: 1.0";
 
         let body = format!("\
 --{boundary}
 {multipart_headers}
+Content-Type: text/plain; charset=utf-8
 
-{text}
+{plain_text}
 
 
 --{boundary}
 {multipart_headers}
+Content-Type: text/html; charset=utf-8
 
 {html}
 
@@ -58,7 +62,7 @@ Mime-Version: 1.0";
         let email = Message::builder()
             .from(Mailbox::new(Some(String::from("metw")), Address::new("metw", "metw.dev").unwrap()))
             .to(Mailbox::new(None, Address::new("me", "metw.cc").unwrap()))
-            .subject("Metw Girişini Doğrula")
+            .subject(subject)
             .header(ContentType::parse(&format!("multipart/alternative; boundary={boundary}")[..]).unwrap())
             .body(body)
             .unwrap();

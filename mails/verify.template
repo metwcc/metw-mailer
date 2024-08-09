@@ -1,0 +1,28 @@
+@en_US:
+    Your metw email verification code is {{code}}
+    description=Before we change the email on your account, we just need to confirm that this is you. Below is the verification code for your metw account.
+    warning=Don't share this code with anyone.
+
+@tr:
+    Metw e-posta doğrulama kodunuz {{code}}
+    description=Hesabındaki e-posta kesabını değiştirmeden önce kimliğinizi doğrulamak zorundayız. Aşağıdaki metw hesabınız için doğrulama kodudur.
+    warning=Bu kodu kimseyle paylaşmayınız.
+
+
+
+#PLAINTEXT
+{description}
+
+{{code}}
+
+{warning}
+#END
+
+
+#HTML
+{description}<br>
+<br>
+{{code}}<br>
+<br>
+{warning}
+#END
