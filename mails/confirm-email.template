@@ -1,21 +1,24 @@
 @en_US:
-    Your metw email verification code is {{code}}
-    description=Before we change the email on your account, we just need to confirm that this is you. Below is the verification code for your metw account.
-    warning=Don't share this code with anyone.
+    verify new email address for metw.cc 
+    description=Click below to verify your new email address:
+    warning=Do not share this link with anyone.
+    remove_email=If you did not create this account, you can remove the email from the account.
+    button.verify=Verify email
 
 @tr:
-    Metw e-posta doğrulama kodunuz {{code}}
-    description=Hesabındaki e-posta kesabını değiştirmeden önce kimliğinizi doğrulamak zorundayız. Aşağıdaki metw hesabınız için doğrulama kodudur.
-    warning=Bu kodu kimseyle paylaşmayınız.
+    metw.cc yeni e-posta doğrulaması
+    description=Yeni e-postanızı onaylamak için aşağıya tıklayın:
+    warning=Bu linki kimseyle paylaşmayın!
+    remove_email=Bu hesabı açan siz değilseniz e-postayı hesaptan kaldırabilirsiniz.
+    button.verify=E-postayı onayla
 
 
 
 #PLAINTEXT
 {description}
 
-{{code}}
-
 {warning}
+{button.verify}: {{verify}}
 #END
 
 
@@ -47,7 +50,7 @@
                             </tr>
                             <tr>
                                 <td style="padding: 2.5em 0" align="center">
-                                    <b style="padding: .5em 1em; font-size: 2em; background: #EF4862; color: #FAFCFE">{{code}}</b>
+                                    <a style="padding: 1em 2em; background: #EF4862; color: #FAFCFE; text-decoration: none" href="{{verify}}">{button.verify}</a>
                                 </td>
                             </tr>
                             <tr>

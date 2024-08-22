@@ -1,32 +1,25 @@
 @en_US:
-    Verify email address for metw.cc 
+    Verify metw.cc login from new location
     title=Hey {{name}},
-    thanks=Thanks for registering an account on metw.cc! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
-    warning=Do not share this link with anyone.
-    remove_email=If you did not create this account, you can remove the email from the account.
-    button.verify=Verify email
-    button.remove_email=This account is not mine!
+    description=Someone tried to log in to your metw.cc account from a new location. If this is you, click the link below to authorise the log in.
+    button.logout=If this wasn’t you, click here to reset your password and log out all other devices.
+    button.verify=Verify login
 
 @tr:
-    metw.cc e-posta doğrulaması
+    Yeni konumdan metw.cc girişini doğrula
     title=Hey {{name}},
-    thanks=metw.cc'de hesap açtığın için teşekkür ederiz! Başlamadan önce hesabın size ait olduğunu onaylamamız lazım. E-postanızı onaylamak için aşağıya tıklayın:
-    warning=Bu linki kimseyle paylaşmayın!
-    remove_email=Bu hesabı açan siz değilseniz e-postayı hesaptan kaldırabilirsiniz.
-    button.verify=E-postayı onayla
-    button.remove_email=Bu hesap benim değil!
+    description=Biri metw.cc hesabına farklı bir konumdan giriş yapmayı denedi. Bunu deneyen sizseniz aşağıdaki butona tıklayarak girişi doğrulayın.
+    button.logout=Siz değilseniz, buraya tıklayarak şifrenizi sıfırlayın ve diğer cihazlardan çıkış yapın.
+    button.verify=Girişi doğrula
 
 
 
 #PLAINTEXT
 {title}
-{thanks}
+{description}
 
-{warning}
-{button.verify}: {{verify}}
-
-{remove_email}
-{button.remove_email}: {{remove_email}}
+{button.verify} {{verify}}
+{button.logout} {{logout}}
 #END
 
 
@@ -54,23 +47,16 @@
                             <tr>
                                 <td>
                                     <h1 style="margin-bottom: .25em; font-size: 1.5em">{title}</h1>
-                                    {thanks}
+                                    {description}<br>
+                                    <br>
+                                    <b>IP</b>: {{ip}}<br>
+                                    <br>
+                                    <a style="color: #EF4862; font-weight: bold" href="{{logout}}">{button.logout}</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="padding: 2.5em 0" align="center">
                                     <a style="padding: 1em 2em; background: #EF4862; color: #FAFCFE; text-decoration: none" href="{{verify}}">{button.verify}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    {warning}<br>
-                                    {remove_email}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 2.5em 0" align="center">
-                                    <a style="padding: 1em 2em; background: #EEE; color: #4A4C4E; text-decoration: none" href="{{remove_email}}">{button.remove_email}</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -80,4 +66,5 @@
         </tbody>
     </table>
 </div>
+
 #END
