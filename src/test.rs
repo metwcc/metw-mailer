@@ -1,4 +1,3 @@
-
 #[test]
 fn load_cache() {
     use crate::mailfmt::MailFmt;

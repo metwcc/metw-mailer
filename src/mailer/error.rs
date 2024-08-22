@@ -7,10 +7,12 @@ use lettre::address::AddressError;
 
 use crate::mailfmt::error::MailFmtError;
 
+
 #[derive(Debug)]
 pub enum MailerError {
     MailFmtError(MailFmtError),
     AddressError(AddressError),
+    Error(Box<dyn std::error::Error>),
 }
 
 impl Display for MailerError {
@@ -18,6 +20,7 @@ impl Display for MailerError {
         match self {
             Self::MailFmtError(mailfmt_error) => Display::fmt(&mailfmt_error, f),
             Self::AddressError(address_error) => Display::fmt(&address_error, f),
+            Self::Error(error) => Display::fmt(&error, f),
         }
     }
 }

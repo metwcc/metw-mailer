@@ -8,15 +8,19 @@ mod test;
 
 /// Send formatted emails with [mailer::Mailer].
 pub mod mailer;
-/// UNSTABLE: the [mailfmt::MailFmt] object is onsidered unstable. Do not use this function if you are not willing to have changes forced on you!
+/// UNSTABLE: the [mailfmt::MailFmt] object is considered unstable. Do not use this function if you are not willing to have changes forced on you!
 pub mod mailfmt;
 
+/// HTTP email listener
+pub mod web;
+
+use serde::Deserialize;
 /// You can create [Locales] from `&str`.
 /// ```rust,ignore
 /// let locale = Locales::from("en_US");
 /// ```
 #[allow(non_camel_case_types)]
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Deserialize)]
 pub enum Locales {
     en_US,
     tr

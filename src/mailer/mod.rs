@@ -27,7 +27,10 @@
 
 pub mod error;
 
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    time::Duration
+};
 
 use lettre::{
     message::{
@@ -39,6 +42,8 @@ use lettre::{
     Tokio1Executor,
 };
 
+use serde::Deserialize;
+
 use rand::{thread_rng, Rng};
 
 type SmtpTransport = AsyncSmtpTransport<Tokio1Executor>;
@@ -48,6 +53,7 @@ use crate::mailfmt::{MailFmt, MailFmtError};
 use error::MailerError;
 
 /// Options to send email.
+#[derive(Debug, Deserialize)]
 pub struct MailerOptions {
     pub mail_type: String,
     pub locale: Locales,
@@ -56,6 +62,7 @@ pub struct MailerOptions {
 }
 
 /// Non-blocking email sender.
+#[derive(Debug)]
 pub struct Mailer {
     mailer: SmtpTransport,
     mailfmt: MailFmt,
@@ -65,8 +72,10 @@ pub struct Mailer {
 impl Mailer {
     /// Creates new mailer object.
     /// Caches mail templates by formatting with [MailFmt].
-    pub fn new(sender: &str) -> Self {
-        let mailer = SmtpTransport::builder_dangerous("metw.dev").build();
+    pub fn new(relay: &str, sender: &str) -> Self {
+        let mailer = SmtpTransport::builder_dangerous(relay)
+            .timeout(Some(Duration::from_secs(8)))
+            .build();
         let mailfmt = MailFmt::new();
         let sender = sender.parse::<Mailbox>().expect("invalid sender email");
         Self {
@@ -104,10 +113,9 @@ impl Mailer {
             .unwrap();
 
         match self.mailer.send(email).await {
-            Ok(_) => println!("Email sent succesfully!"),
-            Err(e) => panic!("Could not send email: {e:?}")
-        };
-        Ok(())
+            Ok(_) => Ok(()),
+            Err(e) => Err(MailerError::Error(Box::new(e)))
+        }
     }
 
     // Generates random base16 string
