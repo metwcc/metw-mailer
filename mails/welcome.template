@@ -1,14 +1,18 @@
 @en_US:
-    Verify Email Address for Metw
-    title=Hey {{name}}
-    thanks=Thanks for registering an account on metw! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
+    Verify Email Address for metw.cc 
+    title=Hey {{name}},
+    thanks=Thanks for registering an account on metw.cc! Before we get started, we just need to confirm that this is you. Click below to verify your email address:
+    warning=Do not share this link with anyone.
+    remove_email=If you did not create this account, you can remove the email from the account.
     button.verify=Verify email
     button.remove_email=This account is not mine!
 
 @tr:
-    Metw E-posta Doğrulaması
-    title=Hey {{name}}
-    thanks=Metw'da hesap açtığın için teşekkür ederiz! Başlamadan önce hesabın size ait olduğunu onaylamamız lazım. E-postanızı onaylamak için aşağıya tıklayın:
+    metw.cc E-posta Doğrulaması
+    title=Hey {{name}},
+    thanks=metw.cc'de hesap açtığın için teşekkür ederiz! Başlamadan önce hesabın size ait olduğunu onaylamamız lazım. E-postanızı onaylamak için aşağıya tıklayın:
+    warning=Bu linki kimseyle paylaşmayın!
+    remove_email=Bu hesabı açan siz değilseniz e-postayı hesaptan kaldırabilirsiniz.
     button.verify=E-postayı onayla
     button.remove_email=Bu hesap benim değil!
 
@@ -16,19 +20,64 @@
 
 #PLAINTEXT
 {title}
-
 {thanks}
 
+{warning}
 {button.verify}: {{verify}}
+
+{remove_email}
 {button.remove_email}: {{remove_email}}
 #END
 
 
 #HTML
-{title}<br>
-<br>
-{thanks}<br>
-<br>
-<a href="{{verify}}">{button.verify}</a><br>
-<a href="{{remove_email}}">{button.remove_email}</a>
+<div style="margin: 0px auto; max-width: 512px; color: black; font-family: Arial, sans-serif ">
+    <table style="width: 100%">
+        <tbody>
+            <tr>
+                <td align="center" style="padding: 1em 0 0">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img style="height: 2.5em" src="https://cdn.metw.cc/assets/logo/1-80x344.png">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 2.5em 2em">
+                    <table style="width: 100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {title}<br>
+                                    {thanks}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2.5em 0" align="center">
+                                    <a style="padding: 1em 2em; background: #EF4862; color: #FAFCFE; text-decoration: none" href="{{verify}}">{button.verify}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {warning}<br>
+                                    {remove_email}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2.5em 0" align="center">
+                                    <a style="padding: 1em 2em; background: #EEE; color: #4A4C4E; text-decoration: none" href="{{remove_email}}">{button.remove_email}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 #END

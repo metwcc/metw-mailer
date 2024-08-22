@@ -18,6 +18,7 @@ impl Web {
     pub async fn new(host: &str, mailer: Mailer) -> Self {
         let app = Router::new();
         let listener = TcpListener::bind(host).await.expect(&format!("cannot bind host {host}")[..]);
+        println!("{host}");
         Self {
             app,
             listener,

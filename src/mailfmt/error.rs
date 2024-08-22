@@ -5,7 +5,7 @@ use std::{
 
 #[derive(Debug)]
 pub enum MailFmtError {
-    UnknownLocale(crate::Locales),
+    UnknownLocale(Vec<crate::Locales>),
     UnknownTemplate(String),
     FmtError
 }

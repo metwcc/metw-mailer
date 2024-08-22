@@ -20,9 +20,46 @@
 
 
 #HTML
-{description}<br>
-<br>
-{{code}}<br>
-<br>
-{warning}
+<div style="margin: 0px auto; max-width: 512px; color: black; font-family: Arial, sans-serif ">
+    <table style="width: 100%">
+        <tbody>
+            <tr>
+                <td align="center" style="padding: 1em 0 0">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img style="height: 2.5em" src="https://cdn.metw.cc/assets/logo/1-80x344.png">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 2.5em 2em">
+                    <table style="width: 100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {description}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 2.5em 0" align="center">
+                                    <b style="padding: .5em 1em; font-size: 2em; background: #EF4862; color: #FAFCFE">{{code}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {warning}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 #END

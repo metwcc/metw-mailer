@@ -11,7 +11,7 @@ pub mod mailer;
 /// UNSTABLE: the [mailfmt::MailFmt] object is considered unstable. Do not use this function if you are not willing to have changes forced on you!
 pub mod mailfmt;
 
-/// HTTP email listener
+/// HTTP email REST API.
 pub mod web;
 
 use serde::Deserialize;

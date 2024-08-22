@@ -2,6 +2,8 @@ pub mod error;
 
 use include_dir::{include_dir, Dir};
 
+use html_minifier::HTMLMinifier;
+
 use std::collections::HashMap;
 
 use strfmt::strfmt;
@@ -48,15 +50,24 @@ impl MailFmt {
         }
     }
 
-    pub fn fmt(&self, mail: &String, locale: Locales, vars: &HashMap<String, String>) -> Result<MailTemplate, MailFmtError> {
+    pub fn fmt(&self, mail: &String, locales: Vec<Locales>, vars: &HashMap<String, String>) -> Result<MailTemplate, MailFmtError> {
         let mail = match self.templates.get(mail) {
             Some(mail) => mail,
             None => return Err(MailFmtError::UnknownTemplate(mail.clone()))
         };
-        let mail = match mail.get(&locale) {
+
+        // Gets first available locale
+        let mut mail2 = None;
+        for locale in &locales {
+            if let Some(mail) =  mail.get(&locale) { mail2 = Some(mail); break }
+        }
+
+        let mail = match mail2 {
             Some(mail) => mail,
-            None => return Err(MailFmtError::UnknownLocale(locale.clone()))
+            None => return Err(MailFmtError::UnknownLocale(locales.clone()))
         };
+
+
         Ok(MailTemplate {
             subject: strfmt(&mail.subject, &vars).unwrap(),
             plain_text: strfmt(&mail.plain_text, &vars).unwrap(),
@@ -89,7 +100,7 @@ impl MailFmt {
 
             let mut locales = HashMap::<Locales, LocaleTemplate>::new();
             let mut plain_text = String::new();
-            let mut html = String::new();
+            let mut html = HTMLMinifier::new();
 
             for line in file.contents_utf8().expect("Template file name contains invalid UTF-8").lines() {
                 let mut cont = true;
@@ -143,14 +154,17 @@ impl MailFmt {
                         plain_text.push_str("\n");
                     }
                     ParseMode::HtmlInsert => {
-                        html.push_str(line);
-                        html.push_str("\n");
+                        html.digest(line).unwrap();
+                        html.digest("\n").unwrap();
                     }
                     _ => ()
                 };
             }
 
+            let html = String::from_utf8(html.get_html().to_vec()).unwrap();
+
             let mut template: HashMap<Locales, MailTemplate> = HashMap::new();
+
             for (locale, locale_template) in locales.iter() {
                 let mut mail_template = MailTemplate::new();
                 let subject = &locale_template.subject;

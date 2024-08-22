@@ -17,7 +17,7 @@
 //! 
 //! let options = MailerOptions {
 //!     mail_type: String::from("welcome"),
-//!     locale: Locales::tr,
+//!     locale: vec![Locales::en_US],
 //!     vars,
 //!     address: String::from("user@example.com"),
 //! };
@@ -56,7 +56,7 @@ use error::MailerError;
 #[derive(Debug, Deserialize)]
 pub struct MailerOptions {
     pub mail_type: String,
-    pub locale: Locales,
+    pub locales: Vec<Locales>,
     pub vars: HashMap<String, String>,
     pub address: String,
 }
@@ -85,10 +85,10 @@ impl Mailer {
         }
     }
 
-    fn format_mail(&self, mail_type: &String, locale: Locales, vars: &HashMap<String, String>) -> Result<(String, String, String), MailFmtError> {
+    fn format_mail(&self, mail_type: &String, locales: Vec<Locales>, vars: &HashMap<String, String>) -> Result<(String, String, String), MailFmtError> {
         let boundary = Self::generate_boundary();
 
-        let mail_template = self.mailfmt.fmt(mail_type, locale, vars)?;
+        let mail_template = self.mailfmt.fmt(mail_type, locales, vars)?;
         let multipart_headers = "Content-Transfer-Encoding: quoted-printable\nMime-Version: 1.0";
 
         let body = format!(
@@ -102,7 +102,7 @@ impl Mailer {
 
     /// Sends the email
     pub async fn send_mail(&self, options: &MailerOptions) -> Result<(), MailerError> { 
-        let (boundary, subject, body) = self.format_mail(&options.mail_type, options.locale.clone(), &options.vars)?;
+        let (boundary, subject, body) = self.format_mail(&options.mail_type, options.locales.clone(), &options.vars)?;
 
         let email = Message::builder()
             .from(self.sender.clone())
